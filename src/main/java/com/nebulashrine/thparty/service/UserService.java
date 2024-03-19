@@ -8,4 +8,6 @@ public interface UserService {
     User addUser(User user);
 
     User queryUser(String username);
+
+    User modifyUserDetails(User oldUser, User newUser);
 }

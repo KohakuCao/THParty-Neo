@@ -36,7 +36,7 @@ public class Party {
 
     public String leaders;
 
-    public String staff;
+    public String staffs;
 
     public String participants;
 
