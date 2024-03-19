@@ -4,6 +4,24 @@ spring:
     username: root
     password: 123456
     url: jdbc:mysql://localhost:3306/thparty?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT
+    hikari:
+      maximum-pool-size: 100
+      auto-commit: true
+      minimum-idle: 10
+      read-only: false
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    show-sql: true
+    database-platform: MySQL
+
+
+
   security:
     oauth2:
       client:

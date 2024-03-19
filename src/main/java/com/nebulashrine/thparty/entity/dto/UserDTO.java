@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
@@ -34,7 +36,7 @@ public class UserDTO implements UserDetails {
         this.personalWebsite = user.getPersonalWebsite();
         this.qqNumber = user.getQqNumber();
         this.profile = user.getProfile();
-        this.rank = user.getRank();
+        this.rank = user.getUserRank();
         this.phoneNumber = user.getPhoneNumber();
         this.signature = user.getSignature();
         this.uuid = user.getUuid();
@@ -88,36 +90,36 @@ public class UserDTO implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Arrays.asList(new SimpleGrantedAuthority(authority.toUpperCase()));
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.username;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return !this.isAuthorized;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return !this.isBanned;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return !this.isAuthorized;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return !this.isDeleted;
     }
 }

@@ -37,4 +37,16 @@ public class UserServiceImpl implements UserService{
     public User queryUser(String username) {
         return userRepo.findUserByUsername(username);
     }
+
+    @Override
+    public User modifyUserDetails(User oldUser, User newUser) {
+        if(!oldUser.getUuid().equals(newUser.getUuid())){
+            return null;
+        }
+        if (oldUser.getId() != newUser.getId()){
+            return null;
+        }
+        User save = userRepo.save(newUser);
+        return save;
+    }
 }
