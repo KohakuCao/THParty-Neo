@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/thparty?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT
+  security:
+    oauth2:
+      client:
+        registration:
+          messaging-client-oidc:
+            provider: thpassport
+            client-id: 111111
+            client-secret: THPartyFun
+            redirect-uri: http://172.27.96.1:8080/login/oauth2/code/messaging-client-oidc
+            authorization-grant-type: authorization_code
+            scope:
+              - message.read
+              - message.write
+            client-authentication-method: client_secret_basic
+        provider:
+          thpassport:
+            user-info-uri: http://127.0.0.1:9090/user
+            issuer-uri: http://127.0.0.1:9090
+
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+
+jwt:
+  secret: 0e00193eeb1c76a9a95993bf75cb68e4
+  expiration: 259200
+  tokenHeader: Authorization
+  tokenHead: 'Bearer '
