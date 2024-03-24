@@ -20,31 +20,31 @@ public class Party {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    public String title;
+    private String title;
 
-    public String subTitle;
+    private String subTitle;
 
-    public String information;
+    private String information;
 
-    public Date startTime;
+    private Date startTime;
 
-    public Date endTime;
+    private Date endTime;
 
-    public int viewers;
+    private int viewers;
 
-    public String domain;
+    private String domain = id + "";
 
-    public String leaders;
+    private String leaders;
 
-    public String staffs;
+    private String staffs;
 
-    public String participants;
+    private String participants;
 
-    public String organizations;
+    private String organizations;
 
-    public boolean isActive;
+    private boolean isActive;
 
-    public String location;
+    private String location;
 
-    public boolean is_deleted;
+    private boolean isDeleted;
 }

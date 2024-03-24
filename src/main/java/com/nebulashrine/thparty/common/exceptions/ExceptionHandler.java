@@ -8,6 +8,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -49,12 +50,12 @@ public class ExceptionHandler {
         return Result.error(StatusCode.FAILED.getStatusCode(), StatusCode.FAILED.getResultMessage());
     }
 
-    /**
-     * 处理运行时错误
-     * @param runtimeException
-     * @return Result
-     * @see Result
-     */
+//    /**
+//     * 处理运行时错误
+//     * @param runtimeException
+//     * @return Result
+//     * @see Result
+//     */
 //    @ResponseBody
 //    @ExceptionHandler(RuntimeException.class)
 //    public Result runtimeExceptionHandler(RuntimeException runtimeException){
@@ -63,18 +64,35 @@ public class ExceptionHandler {
 //        return Result.err(new ErrorInfo(message, StatusCode.ERROR.getResultCode()));
 //    }
 
-    /**
-     * 处理JwtAuthException
-     * @param jwtAuthException
-     * @return Result
-     * @see Result
-     * @see JwtAuthException
-     */
+
     @ResponseBody
-    @org.springframework.web.bind.annotation.ExceptionHandler(JwtAuthException.class)
-    public Result jwtAuthExceptionHandler(JwtAuthException jwtAuthException){
-        String message = jwtAuthException.getMessage();
+    @org.springframework.web.bind.annotation.ExceptionHandler(EntityCannotFoundException.class)
+    public Result EntityCannotFoundExceptionHandler(EntityCannotFoundException entityCannotFoundException){
+        String message = entityCannotFoundException.getMessage();
         log.error("=> " + message);
-        return Result.error(StatusCode.USER_AUTH_ERROR.getStatusCode(), StatusCode.USER_AUTH_ERROR.getResultMessage());
+        return Result.error(StatusCode.FAILED.getStatusCode(), message);
+    }
+
+    @ResponseBody
+    @org.springframework.web.bind.annotation.ExceptionHandler(MultipleEntitiesException.class)
+    public Result MultipleEntitiesExceptionHandler(MultipleEntitiesException multipleEntitiesException){
+        String message = multipleEntitiesException.getMessage();
+        log.error("=> " + message);
+        return Result.error(StatusCode.FAILED.getStatusCode(), message);
+    }
+
+    @ResponseBody
+    @org.springframework.web.bind.annotation.ExceptionHandler(AccessDeniedException.class)
+    public Result AccessDeniedExceptionHandler(AccessDeniedException accessDeniedException){
+        String message = accessDeniedException.getMessage();
+        log.error("=> " + message);
+        return Result.error(StatusCode.USER_AUTH_ERROR.getStatusCode(), message);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(UserNotLoginException.class)
+    public RedirectView UserNotLoginExceptionHandler(UserNotLoginException userNotLoginException){
+        String message = userNotLoginException.getMessage();
+        log.warn("=> " + message);
+        return new RedirectView("/user/loginViaTHP");
     }
 }
