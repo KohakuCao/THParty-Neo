@@ -41,6 +41,7 @@ public class UserDTO implements UserDetails {
         this.signature = user.getSignature();
         this.uuid = user.getUuid();
         this.registerDate = user.getRegisterDate();
+        this.parties = user.getParties();
     }
 
 
@@ -87,6 +88,8 @@ public class UserDTO implements UserDetails {
     private boolean isAuthorized;
 
     private String rank;
+
+    private String parties;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

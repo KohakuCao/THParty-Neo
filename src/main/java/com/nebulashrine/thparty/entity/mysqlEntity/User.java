@@ -64,6 +64,8 @@ public class User {
 
     private String userRank;
 
+    private String parties;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

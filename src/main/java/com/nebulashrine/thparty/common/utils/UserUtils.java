@@ -3,8 +3,11 @@ package com.nebulashrine.thparty.common.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nebulashrine.thparty.common.exceptions.AccessDeniedException;
+import com.nebulashrine.thparty.common.exceptions.UserNotLoginException;
 import com.nebulashrine.thparty.entity.mysqlEntity.User;
-import com.nebulashrine.thparty.service.UserService;
+import com.nebulashrine.thparty.entity.vo.UserVO;
+import com.nebulashrine.thparty.service.serviceInterface.UserService;
 import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,7 +35,7 @@ public class UserUtils {
         String username = getUsername();
         User user = userService.queryUser(username);
         if (user == null){
-            throw new NullPointerException();
+            throw new UserNotLoginException();
         }
         return user;
     }
@@ -65,5 +68,67 @@ public class UserUtils {
         newList.removeAll(list2);
         newList.addAll(list2);
         return newList;
+    }
+
+    public User generateUser(UserVO userVO) throws AccessDeniedException {
+        User user = getUser();
+        if (userVO.getUuid().equals(user.getUuid())){
+            throw new AccessDeniedException("Access Denied");
+        }
+        if (!isNullOrEmpty(userVO.getGender())) {
+            user.setGender(userVO.getGender());
+        }
+        if (!isNullOrEmpty(userVO.getEmail())){
+            user.setEmail(userVO.getEmail());
+        }
+        if (!isNullOrEmpty(userVO.getPhoneNumber())){
+            user.setPhoneNumber(userVO.getPhoneNumber());
+        }
+        if (null != userVO.getBirthday()){
+            user.setBirthday(userVO.getBirthday());
+        }
+        if (!isNullOrEmpty(userVO.getSignature())){
+            user.setSignature(userVO.getSignature());
+        }
+        if (!isNullOrEmpty(userVO.getProfile())){
+            user.setProfile(userVO.getProfile());
+        }
+        if (!isNullOrEmpty(userVO.getPersonalWebsite())){
+            user.setPersonalWebsite(userVO.getPersonalWebsite());
+        }
+        if (!isNullOrEmpty(userVO.getLocation())){
+            user.setLocation(userVO.getLocation());
+        }
+        if (!isNullOrEmpty(userVO.getQqNumber())){
+            user.setQqNumber(userVO.getQqNumber());
+        }
+        return user;
+    }
+
+    private boolean isNullOrEmpty(String str){
+        return null == str || str.isEmpty();
+    }
+
+    public ArrayList<Integer> deserializationParty(String partyJson){
+        ObjectMapper mapper = new ObjectMapper();
+        ArrayList<Integer> list = null;
+        try {
+            list =  mapper.readValue(partyJson, new TypeReference<ArrayList<Integer>>() {
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public String serializationParty(ArrayList<Integer> partyId){
+        String partyJson = null;
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            partyJson = mapper.writeValueAsString(partyId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return partyJson;
     }
 }

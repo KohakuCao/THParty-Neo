@@ -1,4 +1,4 @@
-package com.nebulashrine.thparty.service;
+package com.nebulashrine.thparty.service.serviceInterface;
 
 import com.nebulashrine.thparty.entity.mysqlEntity.User;
 
@@ -10,4 +10,8 @@ public interface UserService {
     User queryUser(String username);
 
     User modifyUserDetails(User oldUser, User newUser);
+
+    User joinParty(String username, int partyId);
+
+    User leaveParty(String username, int partyId);
 }
