@@ -9,6 +9,9 @@ import com.nebulashrine.thparty.entity.vo.PartyVO;
 import com.nebulashrine.thparty.entity.vo.UserVO;
 import com.nebulashrine.thparty.service.serviceInterface.PartyService;
 import com.nebulashrine.thparty.service.serviceInterface.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+@Tag(name = "UserController", description = "用户管理")
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -34,6 +38,8 @@ public class UserController {
         this.userUtils = userUtils;
     }
 
+    @Operation(summary = "changeProfile", description = "编辑自身信息")
+    @Parameter(name = "UserVO", description = "UserVO")
     @PostMapping("/changeProfile")
     public Result changeProfile(@Valid UserVO userVO) throws Exception{
         User user = userUtils.getUser();
@@ -45,6 +51,8 @@ public class UserController {
         return Result.succeed(user);
     }
 
+    @Operation(summary = "joinParty", description = "加入聚会")
+    @Parameter(name = "PartyVO", description = "PartyVO")
     @PostMapping("/joinParty")
     @ResponseBody
     public Result joinParty(@Validated(DefaultParty.class)PartyVO partyVO){
@@ -52,6 +60,9 @@ public class UserController {
         return Result.succeed(user);
     }
 
+
+    @Operation(summary = "leaveParty", description = "离开聚会")
+    @Parameter(name = "PartyVO", description = "PartyVO")
     @PostMapping("/leaveParty")
     @ResponseBody
     public Result leaveParty(@Validated(DefaultParty.class)PartyVO partyVO){

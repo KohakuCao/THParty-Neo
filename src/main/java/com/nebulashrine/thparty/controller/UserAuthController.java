@@ -6,6 +6,9 @@ import com.nebulashrine.thparty.common.response.StatusCode;
 import com.nebulashrine.thparty.common.utils.UserUtils;
 import com.nebulashrine.thparty.entity.mysqlEntity.User;
 import com.nebulashrine.thparty.service.serviceInterface.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,6 +25,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.util.Collections;
 import java.util.Map;
 
+@Tag(name = "UserAuthController", description = "用户权限管理")
 @Controller
 @RequestMapping("/user")
 public class UserAuthController {
@@ -50,6 +54,7 @@ public class UserAuthController {
      * @param response
      * @return
      */
+    @Operation(summary = "loginViaTHP", description = "通过THP登录")
     @ResponseBody
     @RequestMapping("/loginViaTHP")
     public Result loginViaTHP(@AuthenticationPrincipal OAuth2User principal, HttpServletResponse response){
@@ -68,6 +73,7 @@ public class UserAuthController {
 
     }
 
+
     @GetMapping("/data")
     public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
         principal.getAttributes().forEach((k, v)->{
@@ -77,6 +83,8 @@ public class UserAuthController {
         return Collections.singletonMap("name", principal.getAttribute("sub"));
     }
 
+    @Operation(summary = "userInfo", description = "获取用户信息")
+    @Parameter(name = "username", description = "用户名(为空则为自身信息)")
     @ResponseBody
     @GetMapping("/info/{username}")
     public Result userInfo(@PathVariable("username") String username){
@@ -92,6 +100,9 @@ public class UserAuthController {
                 return Result.error(StatusCode.NOT_FOUND.getStatusCode(), "该用户不存在");
             }
         }
+        user.setPassword("");
+        user.setAuthority("");
+        user.setId(2147483647);
         return Result.succeed(user,"查询成功");
     }
 

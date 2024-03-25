@@ -8,6 +8,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+
 @Repository
 public interface PartyRepo extends CrudRepository<Party, Integer>, PagingAndSortingRepository<Party, Integer> {
 
@@ -39,6 +41,9 @@ public interface PartyRepo extends CrudRepository<Party, Integer>, PagingAndSort
 
     Party queryAllById(int id);
 
-    Party queryAllByPath(String path);
+    Party queryAllByDomain(String domain);
+
+    @Query("select Party from Party party where party.isActive = true and party.isDeleted = false ")
+    ArrayList<Party> queryAllByActiveAndDeleted(boolean active, boolean deleted);
 
 }

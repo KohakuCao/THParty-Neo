@@ -7,6 +7,7 @@ import com.nebulashrine.thparty.common.exceptions.AccessDeniedException;
 import com.nebulashrine.thparty.common.exceptions.UserNotLoginException;
 import com.nebulashrine.thparty.entity.mysqlEntity.User;
 import com.nebulashrine.thparty.entity.vo.UserVO;
+import com.nebulashrine.thparty.repository.UserRepo;
 import com.nebulashrine.thparty.service.serviceInterface.UserService;
 import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,11 @@ import java.util.ArrayList;
 @Component
 public class UserUtils {
 
-    private final UserService userService;
+    private final UserRepo userRepo;
 
     @Autowired
-    public UserUtils(UserService userService) {
-        this.userService = userService;
+    public UserUtils(UserRepo userRepo) {
+        this.userRepo = userRepo;
     }
 
     public @Nullable String getUsername(){
@@ -33,7 +34,7 @@ public class UserUtils {
 
     public User getUser(){
         String username = getUsername();
-        User user = userService.queryUser(username);
+        User user = userRepo.findUserByUsername(username);
         if (user == null){
             throw new UserNotLoginException();
         }

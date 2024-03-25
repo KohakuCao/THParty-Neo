@@ -35,4 +35,6 @@ public interface PartyService {
     Party queryParty(String path);
 
     Party queryParty(int id);
+
+    ArrayList<Party> queryAllValidParty();
 }
