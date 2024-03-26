@@ -20,6 +20,11 @@ public class SecurityConfig {
                                 .requestMatchers("/user/joinParty").hasAnyAuthority("SCOPE_message.read")
                                 .requestMatchers("/user/changeProfile").hasAnyAuthority("SCOPE_message.read")
                                 .requestMatchers("/user/leaveParty").hasAnyAuthority("SCOPE_message.read")
+                                .requestMatchers("/party/deleteParty").hasAnyAuthority("SCOPE_message.read")
+                                .requestMatchers("/party/modifyParty").hasAnyAuthority("SCOPE_message.read")
+                                .requestMatchers("/org/**").hasAnyAuthority("SCOPE_message.read")
+                                .requestMatchers("/*.html", "/js/*.js", "/*.js").permitAll()
+                                .requestMatchers("/**").permitAll()
                                 .anyRequest().authenticated())
                 .oauth2Login(Customizer.withDefaults());
         http.formLogin(login ->

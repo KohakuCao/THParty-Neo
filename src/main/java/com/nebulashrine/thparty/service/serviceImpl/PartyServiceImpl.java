@@ -230,13 +230,18 @@ public class PartyServiceImpl implements PartyService {
     }
 
     @Override
-    public @Nullable Party queryParty(String path) {
-        return partyRepo.queryAllByPath(path);
+    public @Nullable Party queryParty(String domain) {
+        return partyRepo.queryAllByDomain(domain);
     }
 
     @Override
     public @Nullable Party queryParty(int id) {
         return partyRepo.queryAllById(id);
+    }
+
+    @Override
+    public ArrayList<Party> queryAllValidParty() {
+        return partyRepo.queryAllByActiveAndDeleted(true, false);
     }
 
 
