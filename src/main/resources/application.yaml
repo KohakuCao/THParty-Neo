@@ -26,12 +26,28 @@ spring:
     oauth2:
       client:
         registration:
+#          messaging-client-oidc:
+#            provider: thpassport
+#            client-id: 111111
+#            client-secret: THPartyFun
+#            redirect-uri: http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc
+#            authorization-grant-type: authorization_code
+#            client-name: THPartyFun
+#            scope:
+#              - message.read
+#              - message.write
+#            client-authentication-method: client_secret_basic
+#        provider:
+#          thpassport:
+#            user-info-uri: http://test.thparty.fun:5550/user
+#            issuer-uri: http://test.thparty.fun:5550
           messaging-client-oidc:
             provider: thpassport
-            client-id: 111111
+            client-id: 222222
             client-secret: THPartyFun
-            redirect-uri: http://172.27.96.1:8080/login/oauth2/code/messaging-client-oidc
+            redirect-uri: http://172.17.192.1:8080/login/oauth2/code/messaging-client-oidc
             authorization-grant-type: authorization_code
+            client-name: THPartyTest
             scope:
               - message.read
               - message.write

@@ -7,7 +7,6 @@ import com.nebulashrine.thparty.entity.vo.PartyVO;
 import com.nebulashrine.thparty.repository.OrganizationRepo;
 import com.nebulashrine.thparty.repository.PartyRepo;
 import com.nebulashrine.thparty.repository.UserRepo;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

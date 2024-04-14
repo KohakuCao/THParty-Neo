@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.nebulashrine</groupId>
     <artifactId>thparty</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.3.1-SNAPSHOT</version>
     <name>THParty.FUN</name>
     <description>THParty.FUN</description>
     <properties>

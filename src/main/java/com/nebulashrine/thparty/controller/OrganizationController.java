@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "OrganizationController", description = "社团相关Controller")
 @RestController()
-@RequestMapping("/org")
+@RequestMapping("/api/org")
 public class OrganizationController {
 
     private final OrganizationUtils organizationUtils;
