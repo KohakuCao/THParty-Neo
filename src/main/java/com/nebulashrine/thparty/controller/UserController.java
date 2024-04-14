@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Tag(name = "UserController", description = "用户管理")
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     private final UserService userService;

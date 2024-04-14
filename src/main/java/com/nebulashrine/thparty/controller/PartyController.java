@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 @Tag(name = "PartyController", description = "聚会相关Controller")
 @RestController
-@RequestMapping("/party")
+@RequestMapping("/api/party")
 public class PartyController {
 
     private final PartyService partyService;

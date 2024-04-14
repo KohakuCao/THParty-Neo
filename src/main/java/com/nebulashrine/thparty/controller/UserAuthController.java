@@ -27,7 +27,7 @@ import java.util.Map;
 
 @Tag(name = "UserAuthController", description = "用户权限管理")
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserAuthController {
 
     private final UserService userService;
@@ -46,7 +46,7 @@ public class UserAuthController {
     */
     @GetMapping("/loginWithTHPassport")
     public RedirectView loginWithTHPassport(){
-        return new RedirectView("/oauth2/authorization/thpassport");
+        return new RedirectView("/oauth2/authorization/messaging-client-oidc");
     }
 
     /**
